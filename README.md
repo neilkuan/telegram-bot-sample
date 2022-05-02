@@ -42,7 +42,7 @@ npx cdk diff
 npx cdk deploy
 ```
 
-## To Destory
+## To Destroy
 ```bash
 npx cdk destroy
 ```
