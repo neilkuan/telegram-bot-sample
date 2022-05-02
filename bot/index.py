@@ -23,13 +23,6 @@ def get_name(message: telebot.types.Message):
         name = ''
     return name
 
-
-
-def now_price(token: Dict):
-    for k in token.keys():
-       key_name = k
-    return f'{str(key_name).upper()} now price is: {token.get(key_name)}'
-
 def now_prices(token: Dict):
     for k in token.keys():
        key_name = k
@@ -54,10 +47,11 @@ def price(message: telebot.types.Message):
     gmt = cg.get_price(ids='STEPN', vs_currencies=['usd','twd'])
     gst = cg.get_price(ids='green-satoshi-token', vs_currencies=['usd','twd'])
     sol = cg.get_price(ids='solana', vs_currencies=['usd','twd'])
-    bot.send_message(message.chat.id, f'''Hello! 
-    GST: {now_price(gst)}
-    GMT: {now_price(gmt)}
-    GMT: {now_price(sol)}''')
+    bot.send_message(message.chat.id, f'''
+🐻 Now Price 📊
+🏃🏻 GST: 🇺🇸 美金：{now_prices(gst).get('usd')} / 🇹🇼 台幣：{now_prices(gst).get('twd')} 
+🐥 GMT: 🇺🇸 美金：{now_prices(gmt).get('usd')} / 🇹🇼 台幣：{now_prices(gmt).get('twd')} 
+🔮 SOL: 🇺🇸 美金：{now_prices(sol).get('usd')} / 🇹🇼 台幣：{now_prices(sol).get('twd')} ''')
 
 @bot.message_handler(commands=['mint'])
 def mint_shoses(message: telebot.types.Message):
