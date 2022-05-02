@@ -1,6 +1,11 @@
 # Telegram bot example deploy via AWS CDK
 ![](./1.png)
-## Init export `API_KEY` in your shell 
+
+## Init
+- Create a telegram bot from `botFather`, and get the `HTTP_TOKEN`.
+![](./2.png)
+
+- export `API_KEY` in your shell 
 ```bash
 export API_KEY=1234456789:xxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
