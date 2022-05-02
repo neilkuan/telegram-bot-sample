@@ -43,15 +43,21 @@ def hello(message: telebot.types.Message):
 
 @bot.message_handler(commands=['n_price'])
 def price(message: telebot.types.Message):
-    cg = CoinGeckoAPI()
-    gmt = cg.get_price(ids='STEPN', vs_currencies=['usd','twd'])
-    gst = cg.get_price(ids='green-satoshi-token', vs_currencies=['usd','twd'])
-    sol = cg.get_price(ids='solana', vs_currencies=['usd','twd'])
-    bot.send_message(message.chat.id, f'''
+    try:
+        cg = CoinGeckoAPI()
+        gmt = cg.get_price(ids='STEPN', vs_currencies=['usd','twd'])
+        gst = cg.get_price(ids='green-satoshi-token', vs_currencies=['usd','twd'])
+        sol = cg.get_price(ids='solana', vs_currencies=['usd','twd'])
+        bnb = cg.get_price(ids='binancecoin', vs_currencies=['usd','twd'])
+        
+        bot.send_message(message.chat.id, f'''
 🐻 Now Price 📊
 🏃🏻 GST: 🇺🇸 美金：{now_prices(gst).get('usd')} / 🇹🇼 台幣：{now_prices(gst).get('twd')} 
 🐥 GMT: 🇺🇸 美金：{now_prices(gmt).get('usd')} / 🇹🇼 台幣：{now_prices(gmt).get('twd')} 
-🔮 SOL: 🇺🇸 美金：{now_prices(sol).get('usd')} / 🇹🇼 台幣：{now_prices(sol).get('twd')} ''')
+🔮 SOL: 🇺🇸 美金：{now_prices(sol).get('usd')} / 🇹🇼 台幣：{now_prices(sol).get('twd')} 
+🔮 BNB: 🇺🇸 美金：{now_prices(bnb).get('usd')} / 🇹🇼 台幣：{now_prices(bnb).get('twd')} ''')
+    except:
+        bot.send_message(message.chat.id, 'CoinGeckoAPI Error')
 
 @bot.message_handler(commands=['mint'])
 def mint_shoses(message: telebot.types.Message):
