@@ -22,27 +22,18 @@ $ source venv/bin/activate
 ```
 
 
-# Deploy to AWS Cloud
+# Deploy to AWS Cloud via Github pipeline
 - feature:
     - Fargate spot save your money
     > `aws ecs describe-tasks --region ${REGION} --task ${TASK_ID} --cluster telegram-bot | grep capacityProviderName`
     > "capacityProviderName": "FARGATE_SPOT"
+
 ## To Install
 ```bash
 yarn
 ```
 
-## To Diff
+## local testing
 ```bash
-npx cdk diff
-```
-
-## To Deploy
-```bash
-npx cdk deploy
-```
-
-## To Destroy
-```bash
-npx cdk destroy
+yarn build
 ```
