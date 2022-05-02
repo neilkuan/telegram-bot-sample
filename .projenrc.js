@@ -5,6 +5,7 @@ const project = new awscdk.AwsCdkTypeScriptApp({
   name: 'telegram-bot-sample',
   gitignore: ['venv', '.env'],
   depsUpgradeOptions: {
+    ignoreProjen: false,
     workflowOptions: {
       labels: ['auto-approve'],
     },
