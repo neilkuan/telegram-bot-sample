@@ -18,6 +18,10 @@ $ source venv/bin/activate
 
 
 # Deploy to AWS Cloud
+- feature:
+    - Fargate spot save your money
+    > `aws ecs describe-tasks --region ${REGION} --task ${TASK_ID} --cluster telegram-bot | grep capacityProviderName`
+    > "capacityProviderName": "FARGATE_SPOT"
 ## To Install
 ```bash
 yarn

@@ -9,7 +9,7 @@ test('Snapshot', () => {
     },
   });
   const stack = new MyStack(app, 'test', {
-    default_vpc: false,
+    use_new_vpc: true,
   });
   Template.fromStack(stack).hasResourceProperties('AWS::ECS::ClusterCapacityProviderAssociations', {
     CapacityProviders: [

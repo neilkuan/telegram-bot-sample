@@ -33,6 +33,7 @@ jspm_packages/
 .cache
 venv
 .env
+cdk.context.json
 !/.projenrc.js
 /test-reports/
 junit.xml

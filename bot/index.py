@@ -53,27 +53,31 @@ def price(message: telebot.types.Message):
     cg = CoinGeckoAPI()
     gmt = cg.get_price(ids='STEPN', vs_currencies=['usd','twd'])
     gst = cg.get_price(ids='green-satoshi-token', vs_currencies=['usd','twd'])
+    sol = cg.get_price(ids='solana', vs_currencies=['usd','twd'])
     bot.send_message(message.chat.id, f'''Hello! 
     GST: {now_price(gst)}
-    GMT: {now_price(gmt)}''')
+    GMT: {now_price(gmt)}
+    GMT: {now_price(sol)}''')
 
 @bot.message_handler(commands=['mint'])
 def mint_shoses(message: telebot.types.Message):
     cg = CoinGeckoAPI()
     gmt = cg.get_price(ids='STEPN', vs_currencies=['usd','twd'])
     gst = cg.get_price(ids='green-satoshi-token', vs_currencies=['usd','twd'])
+    sol = cg.get_price(ids='solana', vs_currencies=['usd','twd'])
     try: 
        # numbers format = '/mint 50(gst)/50(gmt)' => ['/mint', '50/50']
         numbers = message.text.split(' ')
         mint_numbers = numbers[1].split('/')
 
         bot.send_message(message.chat.id, f'''
-Mint 🤑 🤑 🤑 新鞋子你需要多少成本 !!! 💸 💸 💸
+🤑 🤑 🤑 Mint 新鞋子你需要多少成本 !!! 💸 💸 💸
 GST: {mint_numbers[0]}
 GMT: {mint_numbers[1]}
 此次所需要的成本 💸
 🇹🇼 台幣為： {float(mint_numbers[0]) * float(now_prices(gmt).get('twd')) + float(mint_numbers[1]) * float(now_prices(gst).get('twd'))} 元
 🇺🇸 美金為： {float(mint_numbers[0]) * float(now_prices(gmt).get('usd')) + float(mint_numbers[1]) * float(now_prices(gst).get('usd'))} 元
+🔮 solana: {(float(mint_numbers[0]) * float(now_prices(gmt).get('usd')) + float(mint_numbers[1]) * float(now_prices(gst).get('usd')))/float(now_prices(sol).get('usd'))}
     ''')
     except:
         bot.send_message(message.chat.id, 'Please use this format "/mint 50/50"')
