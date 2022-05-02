@@ -1,6 +1,6 @@
-import { App } from 'aws-cdk-lib';
+import { App, Stack } from 'aws-cdk-lib';
 import { Template } from 'aws-cdk-lib/assertions';
-import { MyStack } from '../src/main';
+import { TelegramBot } from '../src/telegram-bot';
 
 test('Snapshot', () => {
   const app = new App({
@@ -8,7 +8,8 @@ test('Snapshot', () => {
       api_key: 'mock',
     },
   });
-  const stack = new MyStack(app, 'test', {
+  const stack = new Stack(app, 'test');
+  new TelegramBot(stack, 'TelegramBot', {
     use_new_vpc: true,
   });
   Template.fromStack(stack).hasResourceProperties('AWS::ECS::ClusterCapacityProviderAssociations', {
@@ -28,13 +29,13 @@ test('Snapshot', () => {
         ],
         Essential: true,
         Image: {
-          'Fn::Sub': '${AWS::AccountId}.dkr.ecr.${AWS::Region}.${AWS::URLSuffix}/cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}:b724f9f037b2895decc80bb2939ebf58baad0942a9258c9acfb5fe5414855b69',
+          'Fn::Sub': '${AWS::AccountId}.dkr.ecr.${AWS::Region}.${AWS::URLSuffix}/cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}:0da5359cdea80d3b12adc229e40367eba9345d77d3b1194200df22651fc20970',
         },
         LogConfiguration: {
           LogDriver: 'awslogs',
           Options: {
             'awslogs-group': {
-              Ref: 'tasksbotLogGroup3C870F6F',
+              Ref: 'TelegramBottasksbotLogGroupF084D406',
             },
             'awslogs-stream-prefix': 'bot',
             'awslogs-region': {

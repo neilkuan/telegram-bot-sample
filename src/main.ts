@@ -1,84 +1,34 @@
-import * as path from 'path';
-import { App, Stack, StackProps } from 'aws-cdk-lib';
-import * as ec2 from 'aws-cdk-lib/aws-ec2';
-import * as ecs from 'aws-cdk-lib/aws-ecs';
-import { Construct } from 'constructs';
-
-export interface MyStackProps extends StackProps {
-  use_new_vpc?: boolean;
-}
-
-export class MyStack extends Stack {
-  private vpc :ec2.IVpc;
-  constructor(scope: Construct, id: string, props?: MyStackProps) {
-    super(scope, id, props);
-    if (props?.use_new_vpc) {
-      this.vpc = new ec2.Vpc(this, 'newVpc');
-    } else {
-      this.vpc = ec2.Vpc.fromLookup(this, 'vpc', { isDefault: true });
-    }
-
-    const cluster = new ecs.Cluster(this, 'cluster', {
-      // use default vpc put fargate service in public subnet
-      vpc: this.vpc,
-      clusterName: 'telegram-bot',
-      enableFargateCapacityProviders: true,
-    });
-    const tasks = new ecs.FargateTaskDefinition(this, 'tasks', {
-      cpu: 256,
-      memoryLimitMiB: 512,
-      runtimePlatform: {
-        cpuArchitecture: ecs.CpuArchitecture.X86_64,
-        operatingSystemFamily: ecs.OperatingSystemFamily.LINUX,
-      },
-    });
-    const apiKey = this.node.tryGetContext('api_key') ?? `${process.env.API_KEY}` ?? 'mock';
-
-    tasks.addContainer('bot', {
-      image: ecs.AssetImage.fromAsset(path.join(__dirname, '../bot')),
-      containerName: 'bot',
-      environment: {
-        API_KEY: apiKey,
-      },
-      logging: ecs.LogDrivers.awsLogs({
-        streamPrefix: 'bot',
-      }),
-    });
-
-    const botsvc = new ecs.FargateService(this, 'botsvc', {
-      taskDefinition: tasks,
-      serviceName: 'telegram-bot',
-      cluster,
-      // use default vpc put fargate service in public subnet.
-      vpcSubnets: {
-        subnetType: ec2.SubnetType.PUBLIC,
-      },
-      // put fargate service in public subnet need public ip.
-      assignPublicIp: true,
-      // use FARGATE_SPOT to save money... XD
-      capacityProviderStrategies: [{
-        capacityProvider: 'FARGATE_SPOT',
-        base: 1,
-        weight: 1,
-      }],
-      // source: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/fargate-capacity-providers.html
-      // The Fargate Spot capacity provider is not supported for Linux tasks with the ARM64 architecture,
-      // Fargate Spot only supports Linux tasks with the X86_64 architecture.
-      platformVersion: ecs.FargatePlatformVersion.VERSION1_4,
-    });
-
-    botsvc.node.addDependency(this.node.tryFindChild('cluster') as ecs.CfnClusterCapacityProviderAssociations);
-  }
-}
-
-// for development, use account/region from cdk cli
-const devEnv = {
-  account: process.env.CDK_DEFAULT_ACCOUNT,
-  region: 'us-east-1',
-};
+import { App } from 'aws-cdk-lib';
+import { ShellStep } from 'aws-cdk-lib/pipelines';
+import { GitHubWorkflow, DockerCredential } from 'cdk-pipelines-github';
+import { MyStage } from './stage';
 
 const app = new App();
+const account = '807885433112';
+const region = 'us-east-1';
+const pipeline = new GitHubWorkflow(app, 'Pipeline', {
+  synth: new ShellStep('Build', {
+    commands: [
+      'yarn install',
+      'yarn build',
+      'git diff --exit-code', // <-- this will fail the build if the workflow is not up-to-date
+      'npx cdk synth',
+    ],
+  }),
+  gitHubActionRoleArn: 'arn:aws:iam::807885433112:role/GitHubActionOpenIdSTSRole',
+  dockerCredentials: [
+    DockerCredential.ecr('807885433112.dkr.ecr.us-east-1.amazonaws.com'),
+  ],
+  publishAssetsAuthRegion: 'us-east-1',
+});
 
-new MyStack(app, 'telegram-bot-stack', { env: devEnv, use_new_vpc: false });
+const env = {
+  account,
+  region,
+};
+const stage = new MyStage(app, 'stage', { env });
+pipeline.addStageWithGitHubOptions(stage, {
+  gitHubEnvironment: 'deploy',
+});
 
 app.synth();

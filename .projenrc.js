@@ -14,5 +14,8 @@ const project = new awscdk.AwsCdkTypeScriptApp({
     secret: 'GITHUB_TOKEN',
     allowedUsernames: ['neilkuan'],
   },
+  deps: [
+    'cdk-pipelines-github',
+  ],
 });
 project.synth();
