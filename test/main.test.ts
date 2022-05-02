@@ -1,5 +1,5 @@
 import { App, Stack } from 'aws-cdk-lib';
-import { Template } from 'aws-cdk-lib/assertions';
+import { Template, Match } from 'aws-cdk-lib/assertions';
 import { TelegramBot } from '../src/telegram-bot';
 
 test('Snapshot', () => {
@@ -16,7 +16,7 @@ test('Snapshot', () => {
       'FARGATE_SPOT',
     ],
   });
-  Template.fromStack(stack).hasResourceProperties('AWS::ECS::TaskDefinition', {
+  Template.fromStack(stack).hasResourceProperties('AWS::ECS::TaskDefinition', Match.objectLike({
     ContainerDefinitions: [
       {
         Environment: [
@@ -26,9 +26,6 @@ test('Snapshot', () => {
           },
         ],
         Essential: true,
-        Image: {
-          'Fn::Sub': '${AWS::AccountId}.dkr.ecr.${AWS::Region}.${AWS::URLSuffix}/cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}:0da5359cdea80d3b12adc229e40367eba9345d77d3b1194200df22651fc20970',
-        },
         LogConfiguration: {
           LogDriver: 'awslogs',
           Options: {
@@ -44,5 +41,6 @@ test('Snapshot', () => {
         Name: 'bot',
       },
     ],
-  });
+  }),
+  );
 });
