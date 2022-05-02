@@ -9,9 +9,7 @@ test('Snapshot', () => {
     },
   });
   const stack = new Stack(app, 'test');
-  new TelegramBot(stack, 'TelegramBot', {
-    use_new_vpc: true,
-  });
+  new TelegramBot(stack, 'TelegramBot', { enable_secret: false });
   Template.fromStack(stack).hasResourceProperties('AWS::ECS::ClusterCapacityProviderAssociations', {
     CapacityProviders: [
       'FARGATE',

@@ -7,7 +7,7 @@ export class MyStage extends Stage {
     const stack = new Stack(this, 'TelegramBotStack');
 
     new TelegramBot(stack, 'telegramBot', {
-      use_new_vpc: false,
+      enable_secret: true,
     });
 
   }

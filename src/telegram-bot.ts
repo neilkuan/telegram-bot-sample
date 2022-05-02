@@ -1,10 +1,11 @@
 import * as path from 'path';
 import * as ec2 from 'aws-cdk-lib/aws-ec2';
 import * as ecs from 'aws-cdk-lib/aws-ecs';
+import * as secretsmanager from 'aws-cdk-lib/aws-secretsmanager';
 import { Construct } from 'constructs';
 
 export interface TelegramBotOptions {
-  use_new_vpc?: boolean;
+  enable_secret: boolean;
 }
 
 export class TelegramBot extends Construct {
@@ -12,11 +13,15 @@ export class TelegramBot extends Construct {
   constructor(scope: Construct, id: string, props?: TelegramBotOptions) {
     super(scope, id);
 
-    if (props?.use_new_vpc) {
-      this.vpc = new ec2.Vpc(this, 'newVpc');
-    } else {
-      this.vpc = ec2.Vpc.fromLookup(this, 'vpc', { isDefault: true });
-    }
+    this.vpc = new ec2.Vpc(this, 'newVpc', {
+      natGateways: 0,
+      subnetConfiguration: [
+        {
+          subnetType: ec2.SubnetType.PUBLIC,
+          name: 'telegramBot-Public-Subnet',
+        },
+      ],
+    });
 
     const cluster = new ecs.Cluster(this, 'cluster', {
       // use default vpc put fargate service in public subnet
@@ -32,18 +37,30 @@ export class TelegramBot extends Construct {
         operatingSystemFamily: ecs.OperatingSystemFamily.LINUX,
       },
     });
-    const apiKey = this.node.tryGetContext('api_key') ?? `${process.env.API_KEY}` ?? 'mock';
 
-    tasks.addContainer('bot', {
-      image: ecs.AssetImage.fromAsset(path.join(__dirname, '../bot')),
-      containerName: 'bot',
-      environment: {
-        API_KEY: apiKey,
-      },
-      logging: ecs.LogDrivers.awsLogs({
-        streamPrefix: 'bot',
-      }),
-    });
+    if (props?.enable_secret) {
+      tasks.addContainer('bot', {
+        image: ecs.AssetImage.fromAsset(path.join(__dirname, '../bot')),
+        containerName: 'bot',
+        logging: ecs.LogDrivers.awsLogs({
+          streamPrefix: 'bot',
+        }),
+        secrets: {
+          API_KEY: ecs.Secret.fromSecretsManager(secretsmanager.Secret.fromSecretNameV2(this, 'mysecret', 'telegram/bot/stepn'), 'API_KEY'),
+        },
+      });
+    } else {
+      tasks.addContainer('bot', {
+        image: ecs.AssetImage.fromAsset(path.join(__dirname, '../bot')),
+        containerName: 'bot',
+        logging: ecs.LogDrivers.awsLogs({
+          streamPrefix: 'bot',
+        }),
+        environment: {
+          API_KEY: this.node.tryGetContext('api_key') ?? `${process.env.API_KEY}` ?? 'mock',
+        },
+      });
+    }
 
     const botsvc = new ecs.FargateService(this, 'botsvc', {
       taskDefinition: tasks,
