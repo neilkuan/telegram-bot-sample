@@ -2,12 +2,18 @@ import logging
 import os
 from pycoingecko import CoinGeckoAPI
 import telebot
+import requests
 from typing import Dict
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # import json
 API_KEY = os.getenv('API_KEY')
+
+### 
+bsc_scan = {
+    'GST_BSC': '0x4a2c860cEC6471b9F5F5a336eB4F38bb21683c98'
+}
 
 # help function
 def get_name(message: telebot.types.Message):
@@ -29,6 +35,14 @@ def now_prices(token: Dict):
     return {'usd': token.get(key_name).get('usd'), 'twd': token.get(key_name).get('twd'),}
 
 
+def pancakeswap_api(contract_address: str):
+    try:
+        data = requests.get(f'https://api.pancakeswap.info/api/v2/tokens/{contract_address}').json()
+        price = {'usd': data.get('data').get('price')[:8], 'bnb': data.get('data').get('price_BNB')[:8]}
+        return price
+    except:
+        return 'pancakeswap api error'
+
 logging.info('Start the telegram bot...')
 bot = telebot.TeleBot(API_KEY)
 
@@ -49,13 +63,16 @@ def price(message: telebot.types.Message):
         gst = cg.get_price(ids='green-satoshi-token', vs_currencies=['usd','twd'])
         sol = cg.get_price(ids='solana', vs_currencies=['usd','twd'])
         bnb = cg.get_price(ids='binancecoin', vs_currencies=['usd','twd'])
+        gst_bsc = pancakeswap_api(bsc_scan.get('GST_BSC'))
         
         bot.send_message(message.chat.id, f'''
 🐻 Now Price 📊
-🏃🏻 GST: 🇺🇸 美金：{now_prices(gst).get('usd')} / 🇹🇼 台幣：{now_prices(gst).get('twd')} 
-🐥 GMT: 🇺🇸 美金：{now_prices(gmt).get('usd')} / 🇹🇼 台幣：{now_prices(gmt).get('twd')} 
-🔮 SOL: 🇺🇸 美金：{now_prices(sol).get('usd')} / 🇹🇼 台幣：{now_prices(sol).get('twd')} 
-🔮 BNB: 🇺🇸 美金：{now_prices(bnb).get('usd')} / 🇹🇼 台幣：{now_prices(bnb).get('twd')} ''')
+🏃🏻 GST_SPL: 🇺🇸 USD: {now_prices(gst).get('usd')} / 🇹🇼 TWD: {now_prices(gst).get('twd')} 
+🐥 GMT: 🇺🇸 USD: {now_prices(gmt).get('usd')} / 🇹🇼 TWD: {now_prices(gmt).get('twd')} 
+🔮 SOL: 🇺🇸 USD: {now_prices(sol).get('usd')} / 🇹🇼 TWD: {now_prices(sol).get('twd')} 
+🟡 BNB: 🇺🇸 USD: {now_prices(bnb).get('usd')} / 🇹🇼 TWD: {now_prices(bnb).get('twd')}
+
+🏃🏻🟡 GST_BSC: 🇺🇸 USD: {gst_bsc.get('usd')} / 🟡 BNB: {gst_bsc.get('bnb')}''')
     except:
         bot.send_message(message.chat.id, 'CoinGeckoAPI Error')
 
