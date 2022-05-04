@@ -23,6 +23,10 @@ jobs:
           role-skip-session-tagging: true
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      - name: Setup Node.js
+        uses: actions/setup-node@v2.2.0
+        with:
+          node-version: 14.0.0
       - name: Install dependencies
         run: yarn install --check-files --frozen-lockfile
       - name: Upgrade dependencies

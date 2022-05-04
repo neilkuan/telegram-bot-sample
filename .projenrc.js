@@ -20,6 +20,7 @@ const project = new awscdk.AwsCdkTypeScriptApp({
   deps: [
     'cdk-pipelines-github',
   ],
+  minNodeVersion: '14.0.0',
   workflowBootstrapSteps: [
     {
       name: 'Authenticate Via GitHub Secrets',
