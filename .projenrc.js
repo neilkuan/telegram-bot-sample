@@ -8,9 +8,9 @@ const project = new awscdk.AwsCdkTypeScriptApp({
     ignoreProjen: false,
     workflowOptions: {
       labels: ['auto-approve'],
-      // projenCredentials: github.GithubCredentials.fromPersonalAccessToken({
-      //   secret: 'AUTO_MACHINEčGITHUB_TOKEN',
-      // }),
+      projenCredentials: github.GithubCredentials.fromPersonalAccessToken({
+        secret: 'AUTO_MACHINE_TOKEN',
+      }),
     },
   },
   autoApproveOptions: {
