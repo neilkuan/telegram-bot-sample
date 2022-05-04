@@ -99,6 +99,49 @@ GMT: {mint_numbers[1]}
     except:
         bot.send_message(message.chat.id, 'Please use this format "/mint 50/50"')
 
+# Compare the price of GST/SPL and GST/BSC.
+@bot.message_handler(commands=['c_gst'])
+def price(message: telebot.types.Message):
+    try:
+        cg = CoinGeckoAPI()
+        gst_sol = cg.get_price(ids='green-satoshi-token', vs_currencies=['usd','twd'])
+        gst_bsc = pancakeswap_api(bsc_scan.get('GST_BSC'))
+
+        # numbers format = '/c_gst 50(GST/SPL)/50(GST/BSC)' => ['/c_gst', '50/50']
+        numbers = message.text.split(' ')
+        coins_list = numbers[1].split('/')
+        
+        bot.send_message(message.chat.id, f'''
+🐻 GST Now Price 📊
+🏃🏻🔮 GST_SPL: 🇺🇸 USD: {now_prices(gst_sol).get('usd')} / 🇹🇼 TWD: {now_prices(gst_sol).get('twd')} 
+🏃🏻🟡 GST_BSC: 🇺🇸 USD: {gst_bsc.get('usd')} / 🇹🇼 TWD: {float(gst_bsc.get('usd'))*(float(now_prices(gst_sol).get('twd')) / float(now_prices(gst_sol).get('usd')))}
+
+GST_SPL: {coins_list[0]}
+GST_BSC: {coins_list[1]}
+
+GST/SPL: {float(coins_list[0])*float(now_prices(gst_sol).get('usd'))} USD
+GST/BSC: {float(coins_list[1])*float(gst_bsc.get('usd'))} USD
+''')
+
+
+    except:
+        bot.send_message(message.chat.id, 'CoinGeckoAPI Error')
+
+# List the price of GST/SPL and GST/BSC.
+@bot.message_handler(commands=['gst'])
+def price(message: telebot.types.Message):
+    try:
+        cg = CoinGeckoAPI()
+        gst_sol = cg.get_price(ids='green-satoshi-token', vs_currencies=['usd','twd'])
+        gst_bsc = pancakeswap_api(bsc_scan.get('GST_BSC'))
+        
+        bot.send_message(message.chat.id, f'''
+🐻 GST Now Price 📊
+🏃🏻🔮 GST_SPL: 🇺🇸 USD: {now_prices(gst_sol).get('usd')} / 🇹🇼 TWD: {now_prices(gst_sol).get('twd')} 
+🏃🏻🟡 GST_BSC: 🇺🇸 USD: {gst_bsc.get('usd')} / 🇹🇼 TWD: {float(gst_bsc.get('usd'))*(float(now_prices(gst_sol).get('twd')) / float(now_prices(gst_sol).get('usd')))}''')
+    except:
+        bot.send_message(message.chat.id, 'CoinGeckoAPI Error')
+
 bot.polling()
 
 
