@@ -1,4 +1,4 @@
-const { awscdk } = require('projen');
+const { awscdk, github } = require('projen');
 const project = new awscdk.AwsCdkTypeScriptApp({
   cdkVersion: '2.22.0',
   defaultReleaseBranch: 'main',
@@ -8,10 +8,13 @@ const project = new awscdk.AwsCdkTypeScriptApp({
     ignoreProjen: false,
     workflowOptions: {
       labels: ['auto-approve'],
+      // projenCredentials: github.GithubCredentials.fromPersonalAccessToken({
+      //   secret: 'AUTO_MACHINEčGITHUB_TOKEN',
+      // }),
     },
   },
   autoApproveOptions: {
-    secret: 'GITHUB_TOKEN',
+    secret: 'PROJEN_GITHUB_TOKEN',
     allowedUsernames: ['auto-machine', 'neilkuan'],
   },
   deps: [
