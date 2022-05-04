@@ -123,9 +123,8 @@ GST/SPL: {float(coins_list[0])*float(now_prices(gst_sol).get('usd'))} USD
 GST/BSC: {float(coins_list[1])*float(gst_bsc.get('usd'))} USD
 ''')
 
-
     except:
-        bot.send_message(message.chat.id, 'CoinGeckoAPI Error')
+        bot.send_message(message.chat.id, 'Please use this format "/c_gst, 50/50"')
 
 # List the price of GST/SPL and GST/BSC.
 @bot.message_handler(commands=['gst'])
