@@ -12,7 +12,7 @@ const project = new awscdk.AwsCdkTypeScriptApp({
   },
   autoApproveOptions: {
     secret: 'GITHUB_TOKEN',
-    allowedUsernames: ['neilkuan'],
+    allowedUsernames: ['auto-machine', 'neilkuan'],
   },
   deps: [
     'cdk-pipelines-github',

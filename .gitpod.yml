@@ -1,0 +1,13 @@
+github:
+  prebuilds:
+    pullRequestsFromForks: true
+    addComment: true
+    
+image: 
+  file: .gitpod.Dockerfile
+tasks:
+  - init: yarn
+
+vscode:
+  extensions:
+    - dbaeumer.vscode-eslint
