@@ -12,7 +12,8 @@ API_KEY = os.getenv('API_KEY')
 
 ### 
 bsc_scan = {
-    'GST_BSC': '0x4a2c860cEC6471b9F5F5a336eB4F38bb21683c98'
+    'GST_BSC': '0x4a2c860cEC6471b9F5F5a336eB4F38bb21683c98',
+    'GMT_BDC': '0x3019BF2a2eF8040C242C9a4c5c4BD4C81678b2A1'
 }
 
 # help function
@@ -76,19 +77,21 @@ def price(message: telebot.types.Message):
     except:
         bot.send_message(message.chat.id, 'CoinGeckoAPI Error')
 
-@bot.message_handler(commands=['mint'])
+# The cost of mint shoes in SPL.
+@bot.message_handler(commands=['s_mint'])
 def mint_shoses(message: telebot.types.Message):
-    cg = CoinGeckoAPI()
-    gmt = cg.get_price(ids='STEPN', vs_currencies=['usd','twd'])
-    gst = cg.get_price(ids='green-satoshi-token', vs_currencies=['usd','twd'])
-    sol = cg.get_price(ids='solana', vs_currencies=['usd','twd'])
-    try: 
-       # numbers format = '/mint 50(gst)/50(gmt)' => ['/mint', '50/50']
+    try:
+        cg = CoinGeckoAPI()
+        gmt = cg.get_price(ids='STEPN', vs_currencies=['usd','twd'])
+        gst = cg.get_price(ids='green-satoshi-token', vs_currencies=['usd','twd'])
+        sol = cg.get_price(ids='solana', vs_currencies=['usd','twd']) 
+
+       # numbers format = '/s_mint 50(gst)/50(gmt)' => ['/s_mint', '50/50']
         numbers = message.text.split(' ')
         mint_numbers = numbers[1].split('/')
 
         bot.send_message(message.chat.id, f'''
-🤑 🤑 🤑 Mint 新鞋子你需要多少成本 !!! 💸 💸 💸
+🤑 🤑 🤑 Mint 新鞋子你需要多少成本 (SPL)!!! 💸 💸 💸
 GST: {mint_numbers[0]}
 GMT: {mint_numbers[1]}
 此次所需要的成本 💸
@@ -97,7 +100,31 @@ GMT: {mint_numbers[1]}
 🔮 solana: {(float(mint_numbers[0]) * float(now_prices(gmt).get('usd')) + float(mint_numbers[1]) * float(now_prices(gst).get('usd')))/float(now_prices(sol).get('usd'))}
     ''')
     except:
-        bot.send_message(message.chat.id, 'Please use this format "/mint 50/50"')
+        bot.send_message(message.chat.id, 'Please use this format "/s_mint 50/50"')
+
+# The cost of mint shoes in BSC.
+@bot.message_handler(commands=['b_mint'])
+def mint_shoses(message: telebot.types.Message):
+    try:
+        gmt_bsc = pancakeswap_api(bsc_scan.get('GMT_BSC'))        
+        gst_bsc = pancakeswap_api(bsc_scan.get('GST_BSC'))
+
+       # numbers format = '/b_mint 50(gst)/50(gmt)' => ['/b_mint', '50/50']
+        numbers = message.text.split(' ')
+        mint_numbers = numbers[1].split('/')
+
+        bot.send_message(message.chat.id, f'''
+🤑 🤑 🤑 Mint 新鞋子你需要多少成本 (BSC)!!! 💸 💸 💸
+GST: {mint_numbers[0]}
+GMT: {mint_numbers[1]}
+此次所需要的成本 💸
+
+🇺🇸 美金為： {float(mint_numbers[0]) * float(now_prices(gmt_bsc).get('usd')) + float(mint_numbers[1]) * float(now_prices(gst_bsc).get('usd'))} 元
+🔮 BNB: {float(float(mint_numbers[0]) * float(now_prices(gmt_bsc).get('bnb')) + float(mint_numbers[1]) * float(now_prices(gst_bsc).get('bnb')))}
+    ''')
+    except:
+        bot.send_message(message.chat.id, 'Please use this format "/b_mint 50/50"')
+# 🇹🇼 台幣為： {float(mint_numbers[0]) * float(now_prices(gmt_bsc).get('twd')) + float(mint_numbers[1]) * float(now_prices(gst_bsc).get('twd'))} 元
 
 # Compare the price of GST/SPL and GST/BSC.
 @bot.message_handler(commands=['c_gst'])
