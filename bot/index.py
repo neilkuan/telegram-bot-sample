@@ -13,7 +13,7 @@ API_KEY = os.getenv('API_KEY')
 ### 
 bsc_scan = {
     'GST_BSC': '0x4a2c860cEC6471b9F5F5a336eB4F38bb21683c98',
-    'GMT_BDC': '0x3019BF2a2eF8040C242C9a4c5c4BD4C81678b2A1'
+    'GMT_BSC': '0x3019BF2a2eF8040C242C9a4c5c4BD4C81678b2A1'
 }
 
 # help function
@@ -119,8 +119,8 @@ GST: {mint_numbers[0]}
 GMT: {mint_numbers[1]}
 此次所需要的成本 💸
 
-🇺🇸 美金為： {float(mint_numbers[0]) * float(now_prices(gmt_bsc).get('usd')) + float(mint_numbers[1]) * float(now_prices(gst_bsc).get('usd'))} 元
-🔮 BNB: {float(float(mint_numbers[0]) * float(now_prices(gmt_bsc).get('bnb')) + float(mint_numbers[1]) * float(now_prices(gst_bsc).get('bnb')))}
+🇺🇸 美金為： {float(mint_numbers[0]) * float(gmt_bsc.get('usd')) + float(mint_numbers[1]) * float(gst_bsc.get('usd'))} 元
+🟡 BNB: {float(float(mint_numbers[0]) * float(gmt_bsc.get('bnb')) + float(mint_numbers[1]) * float(gst_bsc.get('bnb')))}
     ''')
     except:
         bot.send_message(message.chat.id, 'Please use this format "/b_mint 50/50"')
