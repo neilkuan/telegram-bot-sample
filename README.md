@@ -40,6 +40,6 @@ yarn build
 
 
 
-Rdf api:
+Ref api:
 - https://github.com/pancakeswap/pancake-info-api/blob/develop/v2-documentation.md
 - https://github.com/man-c/pycoingecko 
