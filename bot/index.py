@@ -64,7 +64,8 @@ def price(message: telebot.types.Message):
         gst = cg.get_price(ids='green-satoshi-token', vs_currencies=['usd','twd'])
         sol = cg.get_price(ids='solana', vs_currencies=['usd','twd'])
         bnb = cg.get_price(ids='binancecoin', vs_currencies=['usd','twd'])
-        gst_bsc = pancakeswap_api(bsc_scan.get('GST_BSC'))
+        # gst_bsc = pancakeswap_api(bsc_scan.get('GST_BSC'))
+        gst_bsc = cg.get_price(ids='green-satoshi-token-bsc', vs_currencies=['usd','twd'])
         
         bot.send_message(message.chat.id, f'''
 🐻 Now Price 📊
@@ -73,7 +74,7 @@ def price(message: telebot.types.Message):
 🔮 SOL: 🇺🇸 USD: {now_prices(sol).get('usd')} / 🇹🇼 TWD: {now_prices(sol).get('twd')} 
 🟡 BNB: 🇺🇸 USD: {now_prices(bnb).get('usd')} / 🇹🇼 TWD: {now_prices(bnb).get('twd')}
 
-🏃🏻🟡 GST_BSC: 🇺🇸 USD: {gst_bsc.get('usd')} / 🟡 BNB: {gst_bsc.get('bnb')}''')
+🏃🏻 GST_SPL: 🇺🇸 USD: {now_prices(gst_bsc).get('usd')} / 🇹🇼 TWD: {now_prices(gst_bsc).get('twd')} ''')
     except:
         bot.send_message(message.chat.id, 'CoinGeckoAPI Error')
 
@@ -132,7 +133,7 @@ def price(message: telebot.types.Message):
     try:
         cg = CoinGeckoAPI()
         gst_sol = cg.get_price(ids='green-satoshi-token', vs_currencies=['usd','twd'])
-        gst_bsc = pancakeswap_api(bsc_scan.get('GST_BSC'))
+        gst_bsc = cg.get_price(ids='green-satoshi-token-bsc', vs_currencies=['usd','twd'])
 
         # numbers format = '/c_gst 50(GST/SPL)/50(GST/BSC)' => ['/c_gst', '50/50']
         numbers = message.text.split(' ')
@@ -141,7 +142,7 @@ def price(message: telebot.types.Message):
         bot.send_message(message.chat.id, f'''
 🐻 GST Now Price 📊
 🏃🏻🔮 GST_SPL: 🇺🇸 USD: {now_prices(gst_sol).get('usd')} / 🇹🇼 TWD: {now_prices(gst_sol).get('twd')} 
-🏃🏻🟡 GST_BSC: 🇺🇸 USD: {gst_bsc.get('usd')} / 🇹🇼 TWD: {float(gst_bsc.get('usd'))*(float(now_prices(gst_sol).get('twd')) / float(now_prices(gst_sol).get('usd')))}
+🏃🏻🟡 GST_BSC: 🇺🇸 USD: {now_prices(gst_sol).get('usd')} / 🇹🇼 TWD: {now_prices(gst_bsc).get('twd')}
 
 GST_SPL: {coins_list[0]}
 GST_BSC: {coins_list[1]}
@@ -159,12 +160,13 @@ def price(message: telebot.types.Message):
     try:
         cg = CoinGeckoAPI()
         gst_sol = cg.get_price(ids='green-satoshi-token', vs_currencies=['usd','twd'])
-        gst_bsc = pancakeswap_api(bsc_scan.get('GST_BSC'))
+        # gst_bsc = pancakeswap_api(bsc_scan.get('GST_BSC'))
+        gst_bsc = cg.get_price(ids='green-satoshi-token-bsc', vs_currencies=['usd','twd'])
         
         bot.send_message(message.chat.id, f'''
 🐻 GST Now Price 📊
 🏃🏻🔮 GST_SPL: 🇺🇸 USD: {now_prices(gst_sol).get('usd')} / 🇹🇼 TWD: {now_prices(gst_sol).get('twd')} 
-🏃🏻🟡 GST_BSC: 🇺🇸 USD: {gst_bsc.get('usd')} / 🇹🇼 TWD: {float(gst_bsc.get('usd'))*(float(now_prices(gst_sol).get('twd')) / float(now_prices(gst_sol).get('usd')))}''')
+🏃🏻🟡 GST_BSC: 🇺🇸 USD: {now_prices(gst_bsc).get('usd')} / 🇹🇼 TWD: {now_prices(gst_bsc).get('twd')}''')
     except:
         bot.send_message(message.chat.id, 'CoinGeckoAPI Error')
 
