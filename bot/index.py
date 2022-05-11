@@ -96,8 +96,8 @@ def mint_shoses(message: telebot.types.Message):
 GST: {mint_numbers[0]}
 GMT: {mint_numbers[1]}
 此次所需要的成本 💸
-🇹🇼 台幣為： {float(mint_numbers[0]) * float(now_prices(gmt).get('twd')) + float(mint_numbers[1]) * float(now_prices(gst).get('twd'))} 元
-🇺🇸 美金為： {float(mint_numbers[0]) * float(now_prices(gmt).get('usd')) + float(mint_numbers[1]) * float(now_prices(gst).get('usd'))} 元
+🇹🇼 台幣為： {float(mint_numbers[0]) * float(now_prices(gst).get('twd')) + float(mint_numbers[1]) * float(now_prices(gmt).get('twd'))} 元
+🇺🇸 美金為： {float(mint_numbers[0]) * float(now_prices(gst).get('usd')) + float(mint_numbers[1]) * float(now_prices(gmt).get('usd'))} 元
 🔮 solana: {(float(mint_numbers[0]) * float(now_prices(gmt).get('usd')) + float(mint_numbers[1]) * float(now_prices(gst).get('usd')))/float(now_prices(sol).get('usd'))}
     ''')
     except:
@@ -120,8 +120,8 @@ GST: {mint_numbers[0]}
 GMT: {mint_numbers[1]}
 此次所需要的成本 💸
 
-🇺🇸 美金為： {float(mint_numbers[0]) * float(gmt_bsc.get('usd')) + float(mint_numbers[1]) * float(gst_bsc.get('usd'))} 元
-🟡 BNB: {float(float(mint_numbers[0]) * float(gmt_bsc.get('bnb')) + float(mint_numbers[1]) * float(gst_bsc.get('bnb')))}
+🇺🇸 美金為： {float(mint_numbers[0]) * float(gst_bsc.get('usd')) + float(mint_numbers[1]) * float(gmt_bsc.get('usd'))} 元
+🟡 BNB: {float(float(mint_numbers[0]) * float(gst_bsc.get('bnb')) + float(mint_numbers[1]) * float(gmt_bsc.get('bnb')))}
     ''')
     except:
         bot.send_message(message.chat.id, 'Please use this format "/b_mint 50/50"')
