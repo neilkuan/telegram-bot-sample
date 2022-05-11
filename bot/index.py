@@ -167,7 +167,7 @@ def price(message: telebot.types.Message):
 🐻 GST Now Price 📊
 🏃🏻🔮 GST_SPL: 🇺🇸 USD: {now_prices(gst_sol).get('usd')} / 🇹🇼 TWD: {now_prices(gst_sol).get('twd')} 
 🏃🏻🟡 GST_BSC: 🇺🇸 USD: {now_prices(gst_bsc).get('usd')} / 🇹🇼 TWD: {now_prices(gst_bsc).get('twd')}
-🟡/🔮 兩這相差倍率: {float(now_prices(gst_bsc).get('usd'))/float(now_prices(gst_sol).get('usd'))}
+🟡/🔮 兩者相差倍率: {float(now_prices(gst_bsc).get('usd'))/float(now_prices(gst_sol).get('usd'))}
 ''')
     except:
         bot.send_message(message.chat.id, 'CoinGeckoAPI Error')
