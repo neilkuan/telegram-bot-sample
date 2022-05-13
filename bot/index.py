@@ -142,17 +142,17 @@ def price(message: telebot.types.Message):
         bot.send_message(message.chat.id, f'''
 🐻 GST Now Price 📊
 🏃🏻🔮 GST_SPL: 🇺🇸 USD: {now_prices(gst_sol).get('usd')} / 🇹🇼 TWD: {now_prices(gst_sol).get('twd')} 
-🏃🏻🟡 GST_BSC: 🇺🇸 USD: {now_prices(gst_sol).get('usd')} / 🇹🇼 TWD: {now_prices(gst_bsc).get('twd')}
+🏃🏻🟡 GST_BSC: 🇺🇸 USD: {now_prices(gst_bsc).get('usd')} / 🇹🇼 TWD: {now_prices(gst_bsc).get('twd')}
 
 GST_SPL: {coins_list[0]}
 GST_BSC: {coins_list[1]}
 
 GST/SPL: {float(coins_list[0])*float(now_prices(gst_sol).get('usd'))} USD
-GST/BSC: {float(coins_list[1])*float(gst_bsc.get('usd'))} USD
+GST/BSC: {float(coins_list[1])*float(now_prices(gst_bsc).get('usd'))} USD
 ''')
 
     except:
-        bot.send_message(message.chat.id, 'Please use this format "/c_gst, 50/50"')
+        bot.send_message(message.chat.id, 'Please use this format "/c_gst 50/50"')
 
 # List the price of GST/SPL and GST/BSC.
 @bot.message_handler(commands=['gst'])
