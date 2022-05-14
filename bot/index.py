@@ -51,9 +51,10 @@ bot = telebot.TeleBot(API_KEY)
 def handle_docs_audio(message):
 	pass
 
-@bot.message_handler(content_types=['text'])
-def handle_message(message):
+@bot.message_handler(func=lambda message: message.document.mime_type == 'text/plain', content_types=['document'])
+def handle_text_doc(message):
 	logging.info(message)
+    pass
 
 @bot.message_handler(commands=['n_hello', 'n_help'])
 def hello(message: telebot.types.Message):
