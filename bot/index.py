@@ -51,6 +51,10 @@ bot = telebot.TeleBot(API_KEY)
 def handle_docs_audio(message):
 	pass
 
+@bot.message_handler(content_types=['text'])
+def handle_message(message):
+	logging.info(message)
+
 @bot.message_handler(commands=['n_hello', 'n_help'])
 def hello(message: telebot.types.Message):
     bot.send_message(message.chat.id, f'Hello! @{get_name(message)}')
