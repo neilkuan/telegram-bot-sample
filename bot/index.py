@@ -78,7 +78,6 @@ def price(message: telebot.types.Message):
     except:
         msg = 'CoinGeckoAPI Error'
         logging.error(msg)
-        bot.send_message(message.chat.id, msg)
     ## Send to Telegram
     try:
         bot.send_message(message.chat.id, msg)
@@ -114,7 +113,6 @@ GMT: {mint_numbers[1]}
     except:
         msg = 'CoinGeckoAPI Error'
         logging.error(msg)
-        bot.send_message(message.chat.id, msg)
 
     try:
         bot.send_message(message.chat.id, msg)
@@ -151,7 +149,6 @@ GMT: {mint_numbers[1]}
     except:
         msg = 'CoinGeckoAPI Error'
         logging.error(msg)
-        bot.send_message(message.chat.id, msg)
 
     try:
         bot.send_message(message.chat.id, msg)
@@ -189,7 +186,6 @@ GST/BSC: {float(coins_list[1])*float(now_prices(gst_bsc).get('usd'))} USD
     except:
         msg = 'CoinGeckoAPI Error'
         logging.error(msg)
-        bot.send_message(message.chat.id, msg)
     
     try:
         bot.send_message(message.chat.id, msg)
@@ -214,7 +210,6 @@ def price(message: telebot.types.Message):
     except:
         msg = 'CoinGeckoAPI Error'
         logging.error(msg)
-        bot.send_message(message.chat.id, msg)
 
     try:
         bot.send_message(message.chat.id, msg)
