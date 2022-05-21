@@ -134,8 +134,6 @@ def mint_shoses(message: telebot.types.Message):
 
 
         if len(mint_numbers) == 2:
-            msg = 'Please use this format "/b_mint 50/50"'
-        else:
             msg = f'''
 🤑 🤑 🤑 Mint 新鞋子你需要多少成本 (BSC)!!! 💸 💸 💸
 GST: {mint_numbers[0]}
@@ -145,6 +143,8 @@ GMT: {mint_numbers[1]}
 🇺🇸 美金為： {float(mint_numbers[0]) * float(gst_bsc.get('usd')) + float(mint_numbers[1]) * float(gmt_bsc.get('usd'))} 元
 🟡 BNB: {float(float(mint_numbers[0]) * float(gst_bsc.get('bnb')) + float(mint_numbers[1]) * float(gmt_bsc.get('bnb')))}
     '''
+        else:
+            msg = 'Please use this format "/b_mint 50/50"'            
 
     except:
         msg = 'CoinGeckoAPI Error'
