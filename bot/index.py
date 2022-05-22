@@ -96,10 +96,15 @@ def mint_shoses(message: telebot.types.Message):
 
        # numbers format = '/s_mint 50(gst)/50(gmt)' => ['/s_mint', '50/50']
         numbers = message.text.split(' ')
-        mint_numbers = numbers[1].split('/')
-
-        if len(mint_numbers) == 2:
-            msg = f'''
+        if len(numbers) > 1:
+            mint_numbers = list(
+                filter(
+                    lambda number: number,
+                    numbers[1].split('/')
+                )
+            )
+            if len(mint_numbers) == 2:
+                msg = f'''
 🤑 🤑 🤑 Mint 新鞋子你需要多少成本 (SPL)!!! 💸 💸 💸
 GST: {mint_numbers[0]}
 GMT: {mint_numbers[1]}
@@ -107,9 +112,8 @@ GMT: {mint_numbers[1]}
 🇹🇼 台幣為： {float(mint_numbers[0]) * float(now_prices(gst).get('twd')) + float(mint_numbers[1]) * float(now_prices(gmt).get('twd'))} 元
 🇺🇸 美金為： {float(mint_numbers[0]) * float(now_prices(gst).get('usd')) + float(mint_numbers[1]) * float(now_prices(gmt).get('usd'))} 元
 🔮 solana: {(float(mint_numbers[0]) * float(now_prices(gst).get('usd')) + float(mint_numbers[1]) * float(now_prices(gmt).get('usd')))/float(now_prices(sol).get('usd'))}
-    '''
-        else:
-            msg = 'Please use this format "/s_mint 50/50"'     
+        '''
+        msg = msg if msg else 'Please use this format "/s_mint 50/50"'
     except:
         msg = 'CoinGeckoAPI Error'
         logging.error(msg)
@@ -130,11 +134,15 @@ def mint_shoses(message: telebot.types.Message):
 
        # numbers format = '/b_mint 50(gst)/50(gmt)' => ['/b_mint', '50/50']
         numbers = message.text.split(' ')
-        mint_numbers = numbers[1].split('/')
-
-
-        if len(mint_numbers) == 2:
-            msg = f'''
+        if len(numbers) > 1:
+            mint_numbers = list(
+                filter(
+                    lambda number: number,
+                    numbers[1].split('/')
+                )
+            )
+            if len(mint_numbers) == 2:
+                msg = f'''
 🤑 🤑 🤑 Mint 新鞋子你需要多少成本 (BSC)!!! 💸 💸 💸
 GST: {mint_numbers[0]}
 GMT: {mint_numbers[1]}
@@ -143,9 +151,7 @@ GMT: {mint_numbers[1]}
 🇺🇸 美金為： {float(mint_numbers[0]) * float(gst_bsc.get('usd')) + float(mint_numbers[1]) * float(gmt_bsc.get('usd'))} 元
 🟡 BNB: {float(float(mint_numbers[0]) * float(gst_bsc.get('bnb')) + float(mint_numbers[1]) * float(gmt_bsc.get('bnb')))}
     '''
-        else:
-            msg = 'Please use this format "/b_mint 50/50"'            
-
+        msg = msg if msg else 'Please use this format "/b_mint 50/50"'
     except:
         msg = 'CoinGeckoAPI Error'
         logging.error(msg)
@@ -167,10 +173,15 @@ def price(message: telebot.types.Message):
 
         # numbers format = '/c_gst 50(GST/SPL)/50(GST/BSC)' => ['/c_gst', '50/50']
         numbers = message.text.split(' ')
-        coins_list = numbers[1].split('/')
-        
-        if len(coins_list) == 2:
-            msg = f'''
+        if len(numbers) > 1:
+            coins_list = list(
+                filter(
+                    lambda number: number,
+                    numbers[1].split('/')
+                )
+            )
+            if len(coins_list) == 2:
+                msg = f'''
 🐻 GST Now Price 📊
 🏃🏻🔮 GST_SPL: 🇺🇸 USD: {now_prices(gst_sol).get('usd')} / 🇹🇼 TWD: {now_prices(gst_sol).get('twd')} 
 🏃🏻🟡 GST_BSC: 🇺🇸 USD: {now_prices(gst_bsc).get('usd')} / 🇹🇼 TWD: {now_prices(gst_bsc).get('twd')}
@@ -181,8 +192,7 @@ GST_BSC: {coins_list[1]}
 GST/SPL: {float(coins_list[0])*float(now_prices(gst_sol).get('usd'))} USD
 GST/BSC: {float(coins_list[1])*float(now_prices(gst_bsc).get('usd'))} USD
 '''
-        else:
-            msg = 'Please use this format "/c_gst 50/50"'
+        msg = msg if msg else 'Please use this format "/c_gst 50/50"'
     except:
         msg = 'CoinGeckoAPI Error'
         logging.error(msg)
