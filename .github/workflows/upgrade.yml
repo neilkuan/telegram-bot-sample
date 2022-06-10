@@ -15,7 +15,7 @@ jobs:
       patch_created: ${{ steps.create_patch.outputs.patch_created }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Authenticate Via GitHub Secrets
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -52,11 +52,11 @@ jobs:
     if: ${{ needs.upgrade.outputs.patch_created }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           token: ${{ secrets.AUTO_MACHINE_TOKEN }}
       - name: Download patch
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: .repo.patch
           path: ${{ runner.temp }}
