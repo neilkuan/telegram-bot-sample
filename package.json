@@ -47,7 +47,7 @@
   },
   "dependencies": {
     "aws-cdk-lib": "^2.22.0",
-    "cdk-pipelines-github": "^0.2.119",
+    "cdk-pipelines-github": "^0.2.120",
     "constructs": "^10.0.5"
   },
   "engines": {
