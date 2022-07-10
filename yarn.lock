@@ -1080,9 +1080,9 @@ at-least-node@^1.0.0:
   integrity sha512-+q/t7Ekv1EDY2l6Gda6LLiX14rU9TV20Wa3ofeQmwPFZbOMo9DXrLbOjFaaclkXKWidIaopwAObQDqwWtGUjqg==
 
 aws-cdk-lib@^2.22.0:
-  version "2.31.0"
-  resolved "https://registry.yarnpkg.com/aws-cdk-lib/-/aws-cdk-lib-2.31.0.tgz#391e8ff70c6de0a0629915e45ae6fcec17cae847"
-  integrity sha512-6GvBmHtUx74uffl6kzvTL1bWN2/qPj4oHQj12gtqPifFBbNNrYGjLEeBY6DuidLhg96OoRoFc3lyJoiB/p7BEw==
+  version "2.31.1"
+  resolved "https://registry.yarnpkg.com/aws-cdk-lib/-/aws-cdk-lib-2.31.1.tgz#97b8a21f14b44875d9424e00758b79c7ec2f765f"
+  integrity sha512-1IFgMxr1PpX90KFzTRZKVwfY+qP/UzLsrNgfylvqveOKy3R6qtGAhAx186+Zy2nx+wYoy+hVz89CZSItGDapMA==
   dependencies:
     "@balena/dockerignore" "^1.0.2"
     case "1.6.3"
@@ -1095,9 +1095,9 @@ aws-cdk-lib@^2.22.0:
     yaml "1.10.2"
 
 aws-cdk@^2.22.0:
-  version "2.31.0"
-  resolved "https://registry.yarnpkg.com/aws-cdk/-/aws-cdk-2.31.0.tgz#779b4d121ac705333e81a86a0be1cc46e2979a90"
-  integrity sha512-vA6ErwhUX7IuIvYkmzlEH8XUN6Ygali/MlEdRwvcD2Dlg1D1WF2zMxGPN8H0sY69S6N2lnM8VmiNiSrh/fpShg==
+  version "2.31.1"
+  resolved "https://registry.yarnpkg.com/aws-cdk/-/aws-cdk-2.31.1.tgz#8ab6d6fb9405baa6c8f6e9f009a66d4cf692a43e"
+  integrity sha512-iET6uQkkllhidC7EsmC8+q8iHGe8o/JCZiEWAdsU4WvZRFuh0ckktQphYf9l/gKgO9x4hthvcEWbMlnjrmzXsw==
   optionalDependencies:
     fsevents "2.3.2"
 
@@ -1314,10 +1314,10 @@ case@1.6.3, case@^1.6.3:
   resolved "https://registry.yarnpkg.com/case/-/case-1.6.3.tgz#0a4386e3e9825351ca2e6216c60467ff5f1ea1c9"
   integrity sha512-mzDSXIPaFwVDvZAHqZ9VlbyF4yyXRuX6IvB06WvPYkqJVO24kX1PPhv9bfpKNFZyxYFmmgo03HUiD8iklmJYRQ==
 
-cdk-pipelines-github@^0.2.121:
-  version "0.2.121"
-  resolved "https://registry.yarnpkg.com/cdk-pipelines-github/-/cdk-pipelines-github-0.2.121.tgz#a430cb0c384b4d86d181c9822b5c5e87bf2bcdb6"
-  integrity sha512-xUrNgHdQbXACsXTYRDrAkxH95K/Syan3UoNOomtQG4WghDK4GnpniUAT5x3blkb1XcKQIZByYfVrovS8Chhsbg==
+cdk-pipelines-github@^0.2.122:
+  version "0.2.122"
+  resolved "https://registry.yarnpkg.com/cdk-pipelines-github/-/cdk-pipelines-github-0.2.122.tgz#6444df1efaf15dd75d9597d9514f7881e0fe6190"
+  integrity sha512-haemcX6BXf2KMKpt5euiaZDMzJe2z3Rkyqp+SpwashxNoUvNPCIgUOy9Zo0Z5RjPv3TdFkDk1YWPsTzFcwSD7A==
   dependencies:
     decamelize "^5.0.1"
     yaml "^1.10.2"
