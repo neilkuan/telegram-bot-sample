@@ -40,14 +40,14 @@
     "jest-junit": "^13",
     "json-schema": "^0.4.0",
     "npm-check-updates": "^15",
-    "projen": "^0.61.37",
+    "projen": "^0.61.41",
     "ts-jest": "^27",
     "ts-node": "^9",
     "typescript": "4.6"
   },
   "dependencies": {
     "aws-cdk-lib": "^2.22.0",
-    "cdk-pipelines-github": "^0.2.173",
+    "cdk-pipelines-github": "^0.2.174",
     "constructs": "^10.0.5"
   },
   "engines": {
