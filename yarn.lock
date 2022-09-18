@@ -1400,10 +1400,10 @@ case@1.6.3, case@^1.6.3:
   resolved "https://registry.yarnpkg.com/case/-/case-1.6.3.tgz#0a4386e3e9825351ca2e6216c60467ff5f1ea1c9"
   integrity sha512-mzDSXIPaFwVDvZAHqZ9VlbyF4yyXRuX6IvB06WvPYkqJVO24kX1PPhv9bfpKNFZyxYFmmgo03HUiD8iklmJYRQ==
 
-cdk-pipelines-github@^0.2.185:
-  version "0.2.185"
-  resolved "https://registry.yarnpkg.com/cdk-pipelines-github/-/cdk-pipelines-github-0.2.185.tgz#14500bd33f548da85f0badd625cef68c451878a3"
-  integrity sha512-ple+CN6LdE1AgTOci/IJTKbylcca+6wVUdtKK0X4kxP2Cc/QgMc4We2MCfCd9RWmHKcXYjjA/pgmfwUBjHSWIg==
+cdk-pipelines-github@^0.2.186:
+  version "0.2.186"
+  resolved "https://registry.yarnpkg.com/cdk-pipelines-github/-/cdk-pipelines-github-0.2.186.tgz#2f5b60838b2156107674ed2a088d31beb9287589"
+  integrity sha512-vAhtvhKqCmOOio86KbDGdtuXPDdkAkzCnIIx8teR9z7tzd2RK58NBQQu6wZQo3Fhzkxszrh6dfiWXhNT7CHwow==
   dependencies:
     decamelize "^5.0.1"
     yaml "^1.10.2"
@@ -1569,9 +1569,9 @@ console-control-strings@^1.1.0:
   integrity sha512-ty/fTekppD2fIwRvnZAVdeOiGd1c7YXEixbgJTNzqcxJWKQnjJ/V1bNEEE6hygpM3WjwHFUVK6HTjWSzV4a8sQ==
 
 constructs@^10.0.5:
-  version "10.1.105"
-  resolved "https://registry.yarnpkg.com/constructs/-/constructs-10.1.105.tgz#129993c3cb52a6a733b4aaf5c9cc9879477d4323"
-  integrity sha512-tfG91781Z1MVgfDm1CkfOVljmBfIpqZu5+F5QdmNQbarLaGmHO4ZNRqUTtKWFVt2u3ZZnNxT/Ksg1uqG98YEFA==
+  version "10.1.106"
+  resolved "https://registry.yarnpkg.com/constructs/-/constructs-10.1.106.tgz#656f04aa747cc6f7ce880be5fbb90ea1b42e7e4a"
+  integrity sha512-xcNB+/5jKk7+9w4pXe5jThpUEDDbhtWLeXlhy9GVdFa/tuasOVEiowZOZMjPvcXrujGgSkVleebo6ZNzvYyZug==
 
 conventional-changelog-config-spec@^2.1.0:
   version "2.1.0"
@@ -4285,10 +4285,10 @@ progress@^2.0.3:
   resolved "https://registry.yarnpkg.com/progress/-/progress-2.0.3.tgz#7e8cf8d8f5b8f239c1bc68beb4eb78567d572ef8"
   integrity sha512-7PiHtLll5LdnKIMw100I+8xJXR5gW2QwWYkT6iJva0bXitZKa/XMrSbdmg3r2Xnaidz9Qumd0VPaMrZlF9V9sA==
 
-projen@^0.62.9:
-  version "0.62.9"
-  resolved "https://registry.yarnpkg.com/projen/-/projen-0.62.9.tgz#e3619cded76cc874b4a2c6f2d31ad0418a2c987c"
-  integrity sha512-Q7nAOhR0sTTmiFlkk2hRi4NWPnC3x2bXvT9aFya7IrsmlodFXvnEiukCYgzshedKWwOFAZeyvEPdGE03gTX7Bw==
+projen@^0.62.10:
+  version "0.62.10"
+  resolved "https://registry.yarnpkg.com/projen/-/projen-0.62.10.tgz#92477db10011b67ca5bb4eb7af26098527ce8174"
+  integrity sha512-EyvCNpzqlEX9oIXkx8JtF8YPkuM/j/bpIs8zfmH0El11UPorwJmRbLOMXTNb5mkfq07bdlGCXvrDbRCD11Ctvw==
   dependencies:
     "@iarna/toml" "^2.2.5"
     case "^1.6.3"
