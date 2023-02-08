@@ -1548,10 +1548,10 @@ case@1.6.3, case@^1.6.3:
   resolved "https://registry.yarnpkg.com/case/-/case-1.6.3.tgz#0a4386e3e9825351ca2e6216c60467ff5f1ea1c9"
   integrity sha512-mzDSXIPaFwVDvZAHqZ9VlbyF4yyXRuX6IvB06WvPYkqJVO24kX1PPhv9bfpKNFZyxYFmmgo03HUiD8iklmJYRQ==
 
-cdk-pipelines-github@^0.3.102:
-  version "0.3.102"
-  resolved "https://registry.yarnpkg.com/cdk-pipelines-github/-/cdk-pipelines-github-0.3.102.tgz#61a2f9980f7f0e7eaa6054d5acfb1d1746592172"
-  integrity sha512-/oPcq7Mcp7OPhXIL5XZCgmjeWX6oBIqsJHoPT0GsR5yfIsVWFhcdBPePZsdx0QWHx/DeEGQufTFKhlcWvnAyJQ==
+cdk-pipelines-github@^0.3.103:
+  version "0.3.126"
+  resolved "https://registry.yarnpkg.com/cdk-pipelines-github/-/cdk-pipelines-github-0.3.126.tgz#191c3246a89878296022ce2c310c6256e940b1be"
+  integrity sha512-rYMgSFCoz+wOBPpJb46tU9Glrh3RV/Kotw3r7FfIynvsXISIyELmYRPqKrUYfgmLHlano49DjV7Pt5hYWnO0HQ==
   dependencies:
     decamelize "^5.0.1"
     fast-json-patch "^3.1.1"
