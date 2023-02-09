@@ -1721,10 +1721,10 @@ console-control-strings@^1.1.0:
   resolved "https://registry.yarnpkg.com/console-control-strings/-/console-control-strings-1.1.0.tgz#3d7cf4464db6446ea644bf4b39507f9851008e8e"
   integrity sha512-ty/fTekppD2fIwRvnZAVdeOiGd1c7YXEixbgJTNzqcxJWKQnjJ/V1bNEEE6hygpM3WjwHFUVK6HTjWSzV4a8sQ==
 
-constructs@^10.0.5:
-  version "10.1.223"
-  resolved "https://registry.yarnpkg.com/constructs/-/constructs-10.1.223.tgz#414961d8c9d2538abe6f98a1b48603ff3e5d766f"
-  integrity sha512-m/+jkHuVZiHmGpEaNwoB3toYdKu/EOd9xVlZ0uYivnWm7uertOPSTXl/Z1f35DXY518ir8X0VBOREAjtIT4F/g==
+constructs@^10.1.224:
+  version "10.1.245"
+  resolved "https://registry.yarnpkg.com/constructs/-/constructs-10.1.245.tgz#8b1075fa68c7e798cdb84af36b3072b92003ff3d"
+  integrity sha512-3TOxsgv5atw87/tAnW4aa7aAp1lA8kqjJ/i78t7jCHJEDzWEOGpT2JjLulyNq+GtyIGBKvHd2a64gogULFJY6Q==
 
 conventional-changelog-config-spec@^2.1.0:
   version "2.1.0"
